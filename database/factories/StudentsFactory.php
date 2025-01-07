@@ -22,6 +22,8 @@ class StudentsFactory extends Factory
             'country' => $this->faker->country(),
             'address' => $this->faker->streetAddress(),
             'gender' => $this->faker->randomElement(['male', 'female']),
+            'standard_id'=>1,
+            
         ];
     }
 }

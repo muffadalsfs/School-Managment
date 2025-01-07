@@ -13,4 +13,9 @@ class Standard extends Model
         'name',
         'class_number',
     ];
+    public function Students()
+    {
+        return $this->hasMany(Students::class);
+
+    }
 }

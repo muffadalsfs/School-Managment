@@ -47,7 +47,10 @@ public static function getNavigationBadge(): ?string
                     'female' => '👩 Female',
                 ])
                 ->label('Gender')
-                ->placeholder('Select Gender') // Adds a default placeholder
+                ->placeholder('Select Gender'), // Adds a default placeholder
+                  Forms\Components\Select::make('standard_id')
+                ->required()
+                ->relationship('standard','name'),
 
 
 
@@ -69,6 +72,8 @@ public static function getNavigationBadge(): ?string
                     ->sortable()
                     ->searchable(),
                     Tables\Columns\TextColumn::make('gender')
+                        ->searchable(),
+                         Tables\Columns\TextColumn::make('standard.name')
                         ->searchable(),
             ])
             ->filters([

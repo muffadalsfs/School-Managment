@@ -23,7 +23,12 @@ class StandardResource extends Resource
     {
         return $form
             ->schema([
-                //
+                 Forms\Components\TextInput::make('name')
+                ->required()
+                ->maxLength(255),
+            Forms\Components\TextInput::make('class_number')
+                ->required()
+                ->numeric(),
             ]);
     }
 
@@ -31,7 +36,11 @@ class StandardResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                ->sortable()
+                ->searchable(),
+                Tables\Columns\TextColumn::make('class_number')
+                    ->searchable(),
             ])
             ->filters([
                 //
@@ -57,8 +66,8 @@ class StandardResource extends Resource
     {
         return [
             'index' => Pages\ListStandards::route('/'),
-            'create' => Pages\CreateStandard::route('/create'),
-            'edit' => Pages\EditStandard::route('/{record}/edit'),
+            // 'create' => Pages\CreateStandard::route('/create'),
+            // 'edit' => Pages\EditStandard::route('/{record}/edit'),
         ];
     }
 }

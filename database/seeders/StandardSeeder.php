@@ -13,6 +13,13 @@ class StandardSeeder extends Seeder
      */
     public function run(): void
     {
-       \App\Models\Standard::factory(5)->create();
+      $data =collect();
+      for($i=1 ;$i<10;$i++){
+        $data->push([
+            'name'=> "Std {$i}",
+            'class_number'=>$i
+        ]);
+      }
+      Standard::factory()->createMany($data);
     }
 }

@@ -15,5 +15,9 @@ class Students extends Model
         'country',
         'student_id',
         'gender',
+        'standard_id'
     ];
+    public function standard(){
+        return $this-> belongsTo(Standard::class);
+    }
 }

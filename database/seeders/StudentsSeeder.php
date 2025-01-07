@@ -4,15 +4,15 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Student;  
-use Illuminate\Support\Facades\DB;
-class StudentSeeder extends Seeder
+use App\Models\Students;
+class StudentsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void
+     public function run(): void
     {
-        \App\Models\Student::factory(10)->create();
+        // Generate 50 fake student records
+        Students::factory()->count(10)->create();
     }
 }

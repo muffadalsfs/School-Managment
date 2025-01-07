@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Stundents>
  */
-class StudentFactory extends Factory
+class StudentsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,12 +17,11 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
+           'name' => $this->faker->name(),
             'student_id' => $this->faker->randomDigit(),
             'country' => $this->faker->country(),
             'address' => $this->faker->streetAddress(),
             'gender' => $this->faker->randomElement(['male', 'female']),
         ];
     }
-
 }

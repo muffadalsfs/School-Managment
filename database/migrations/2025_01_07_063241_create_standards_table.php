@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('standards', function (Blueprint $table) {
             $table->id();
+            $table->string(column:'name')->unique();
+            $table->unsignedInteger(column:'class_number')->unique();
             $table->timestamps();
         });
     }

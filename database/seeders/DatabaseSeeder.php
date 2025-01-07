@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         ]);
  
     $this->call(StudentsSeeder::class);
+        $this->call(GuardianSeeder::class);
+
 
 
          $this->call([

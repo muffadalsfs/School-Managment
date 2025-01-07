@@ -20,4 +20,8 @@ class Students extends Model
     public function standard(){
         return $this-> belongsTo(Standard::class);
     }
+    public function guardians()
+    {
+        return $this->belongsToMany(Guardian::class, 'guardian_student');
+    }
 }

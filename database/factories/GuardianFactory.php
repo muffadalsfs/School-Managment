@@ -19,7 +19,7 @@ class GuardianFactory extends Factory
     {
         return [
             'name'=>$this->faker->name(),
-            'contact_name'=>$this->faker->phonenumber(),
+            'contact_number'=>$this->faker->phonenumber(),
            'relation_type' => $this->faker->randomElement(array_column(RelationType::cases(), 'value')),
 
         ];

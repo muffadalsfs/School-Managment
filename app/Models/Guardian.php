@@ -10,7 +10,7 @@ class Guardian extends Model
     /** @use HasFactory<\Database\Factories\GuardianFactory> */
     use HasFactory;
     protected $fillable=[
-        'name','contact_number','relationship_type'
+        'name','contact_number','relation_type'
     ];
       public function students()
     {

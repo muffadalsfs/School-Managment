@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Filament\Resources;
-
+use Filament\Resources\RelationManagers\RelationManager;
 use App\Filament\Resources\StudentsResource\Pages;
 use App\Models\Students;
 use Filament\Forms;
@@ -13,6 +13,7 @@ use Filament\Tables\Filters\Filter; // Corrected namespace for Filter
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Notifications\Notification;
+
 class StudentsResource extends Resource
 {
     protected static ?string $model = Students::class;
@@ -100,12 +101,14 @@ class StudentsResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            // Define relations here if needed
-        ];
-    }
+public static function getRelations(): array
+{
+    return [
+       StudentResource\RelationManagers\GuardiansRelationManager::class,
+    ];
+}
+
+
 
     public static function getPages(): array
     {

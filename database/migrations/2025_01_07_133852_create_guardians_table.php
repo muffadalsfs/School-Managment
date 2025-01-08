@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('guardians', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('contact_name');
+            $table->string('contact_number');
             $table->string('relation_type')->index();
             $table->timestamps();
         });

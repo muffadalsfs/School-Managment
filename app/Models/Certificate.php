@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Certificate extends Model
 {
     protected $fillable =[
-        'name','description','is_active'
+        'name','description','is_active' ,'certificated_image'
     ];
     public function students()
 {
     return $this->belongsToMany(Students::class, 'certificate_student'); // Ensure the pivot table
 
 }
+
 }

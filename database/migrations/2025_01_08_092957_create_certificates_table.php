@@ -16,6 +16,7 @@ return new class extends Migration
     $table->string('name')->default('Unnamed Certificate'); // Default value
     $table->text('description');
     $table->boolean('is_active')->default(1)->index(); // Corrected default spelling
+    $table->string('certificated_image')->nullable();
     $table->timestamps();
 });
 

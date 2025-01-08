@@ -18,8 +18,10 @@ use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Collection;
-
+use Filament\Forms\Components\Section; // Corrected import
 use Filament\Forms\Components\Wizard;
+use App\Models\Certificate; 
+use App\Models\CertificateStudent;
 class StudentsResource extends Resource
 {
     protected static ?string $model = Students::class;
@@ -65,6 +67,23 @@ class StudentsResource extends Resource
             Forms\Components\Select::make('standard_id')
                 ->required()
                 ->relationship('standard', 'name'),
+                Section::make('Certificates')
+    ->description('Assign certificates to the student')
+    ->collapsible()
+    ->schema([
+        Forms\Components\Repeater::make('certificates')  // Use the relationship name
+            ->relationship('certificates')  // Correctly specify the relationship
+            ->schema([
+                Forms\Components\Select::make('certificate_id')
+                    ->label('Select Certificate') // Adding a label
+                    ->placeholder('Choose a certificate') // Default option tag behavior
+                    ->options(Certificate::all()->pluck('name', 'id')->toArray()) // Dynamically load options
+                    ->searchable()
+                    ->required(),
+                Forms\Components\TextInput::make('description')
+                    ->label('Certificate Description'),
+                    ])
+                ])
         ]);
 }
 

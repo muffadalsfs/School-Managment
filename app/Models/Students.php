@@ -24,4 +24,9 @@ class Students extends Model
     {
         return $this->belongsToMany(Guardian::class, 'guardian_student');
     }
+   public function certificates()
+{
+    return $this->belongsToMany(Certificate::class, 'certificate_student', 'student_id', 'certificate_id');
+}
+
 }

@@ -19,6 +19,7 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Collection;
 
+use Filament\Forms\Components\Wizard;
 class StudentsResource extends Resource
 {
     protected static ?string $model = Students::class;
@@ -38,10 +39,10 @@ class StudentsResource extends Resource
         return static::getModel()::count();
     }
 
-    public static function form(Form $form): Form
-    {
-        return $form->schema([
-            Forms\Components\TextInput::make('name')
+   public static function form(Form $form): Form
+{
+    return $form->schema([
+           Forms\Components\TextInput::make('name')
                 ->required()
                 ->maxLength(255),
             Forms\Components\TextInput::make('address')
@@ -65,7 +66,7 @@ class StudentsResource extends Resource
                 ->required()
                 ->relationship('standard', 'name'),
         ]);
-    }
+}
 
     public static function table(Table $table): Table
     {

@@ -13,6 +13,11 @@ use Filament\Tables\Filters\Filter; // Corrected namespace for Filter
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Notifications\Notification;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\ActionGroup;
+use Illuminate\Database\Eloquent\Collection;
 
 class StudentsResource extends Resource
 {
@@ -74,7 +79,8 @@ class StudentsResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('student_id')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                         ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('gender')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('standard.name')
@@ -84,20 +90,55 @@ class StudentsResource extends Resource
     Filter::make('start')
         ->query(fn(Builder $query): Builder => $query->where('standard_id', 1)),
 
-    \Filament\Tables\Filters\SelectFilter::make('all_standard') // Fixed syntax and namespace
-        ->relationship('standard', 'name') // Correctly reference the 'standard' relationship
+    \Filament\Tables\Filters\SelectFilter::make('all_standard') 
+        ->relationship('standard', 'name') 
         ->label('All Standards'),
 ])
 
 
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
+                        ->actions([
+                              Tables\Actions\EditAction::make(),
+                            ActionGroup::make([
+                    Action::make('promote')
+                        ->label('Promote')
+                        ->action(function (Students $record)
+                         { 
+                            $record->standard_id=$record->standard_id +1;
+                            $record->save();
+                        })
+                        ->requiresConfirmation()
+                        ->icon('heroicon-o-arrow-up')
+                        ->color('success'),
+                        Action::make('Demote')
+                        ->label('demote')
+                        ->action(function (Students $record) 
+                        { 
+                           
+                        if($record->standard_id>1){
+                            $record->standard_id=$record->standard_id -1;
+                            $record->save();
+                        }
+                        })
+                        ->requiresConfirmation()
+                        ->icon('heroicon-o-arrow-down')
+                        ->color('danger')
+                    ]),
+                ])
+
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+               BulkActionGroup::make([
+    Tables\Actions\DeleteBulkAction::make(),
+    BulkAction::make('promote all')
+    ->color('success')
+        ->action(function (Collection $records) { 
+            $records->each(function ($record) {
+                $record->standard_id = $record->standard_id + 1;
+                $record->save();
+            });
+        })
+         ->requiresConfirmation()
+         ->deselectRecordsAfterCompletion(),
+])
             ]);
     }
 
